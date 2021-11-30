@@ -1,0 +1,30 @@
+{% extends 'list/index.html' %}
+{% block content %}
+
+
+<div class="page" style="padding: 25px 0 30px 40px;">
+    <a href="{{ request.META.HTTP_REFERER }}" class="back-link">&#8592; Back</a>
+    <h3 style="color: #f5bf6e; text-shadow: 0 0px 1px rgba(168, 121, 158, 0.98);
+    -webkit-text-shadow: 0 0px 1px #feffdef7; font-size: 24px; margin-bottom: 40px;">Create A Task</h3>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <p style="color: white;">Title:
+            {{ form.title }} </p>
+        </div>
+
+        <div class="input-group mb-3">
+            <p style="color: white;">Description:
+            {{ form.description }} </p>
+        </div>
+
+        <div class="input-group mb-3">
+            <p style="color: white;">Complete:
+            {{ form.complete }} </p>
+        </div>
+
+    <input class="sidebar-search-btn" type="submit" value="Add Task" style="padding: 10px;">
+</form>
+</div>
+
+{% endblock content %}

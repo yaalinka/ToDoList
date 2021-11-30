@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Delete</title>
+	<link rel="icon" href="static/images/IMG_5658.PNG">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+<style>
+    body,
+	html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+    font-family: 'Chakra Petch', sans-serif;
+    background-color: rgb(250, 255, 194);
+    }
+
+	.card {
+	margin: 10% auto;
+	padding: 20px;
+	width: 70%;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	height: 230px;
+	background-color: rgba(168, 121, 158, 0.98);
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -webkit-box-shadow: 10px 10px 10px -2px rgba(0, 0, 0, 0.3);
+    box-shadow: 10px 10px 10px -2px rgba(0, 0, 0, 0.3);
+    transition: all .4s ease-out;
+    -webkit-transition: all .4s ease;
+    }
+
+    .back-link {
+    font-size: 16px;
+    color: white;
+    border: black;
+    transition: all .3s ease-out;
+    -webkit-transition: all .3s ease;
+    }
+
+    .back-link:hover {
+    color: #603461;
+    text-shadow: none;
+    -webkit-text-shadow: none;
+    }
+
+    .sidebar-search-btn {
+    border: 1px solid rgb(59, 55, 49);
+    padding: 0 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -webkit-box-shadow: 10px 10px 10px -2px rgba(0, 0, 0, 0.3);
+    box-shadow: 10px 10px 10px -2px rgba(0, 0, 0, 0.3);
+    transition: all .4s ease-out;
+    -webkit-transition: all .4s ease;
+    }
+    .sidebar-search-btn:hover {
+    background-color: rgba(59, 55, 49, .5);
+    }
+
+</style>
+</head>
+
+<body>
+<div class="card">
+	<a href="{% url 'main' %}" class="back-link">&#8592; Go back</a>
+	<h1 style="color: #f5bf6e; text-shadow: 0 0px 1px rgba(168, 121, 158, 0.98);
+    -webkit-text-shadow: 0 0px 1px #feffdef7; margin: 20px">Confirm Delete</h1>
+	<form method="POST">
+    {% csrf_token %}
+    <p style="font-size: 18px;
+    color: #fff;
+    text-shadow: 0 0px 1px rgba(168, 121, 158, 0.5);
+    -webkit-text-shadow: 0 0px 1px rgba(168, 121, 158, 0.5); margin-left:20px">Are you sure you want to delete this task? "{{ task }}"</p>
+    <input class="sidebar-search-btn" style="padding: 10px; margin-left: 20px;" type="submit" value="Delete"/>
+</form>
+</div>
+
+</body>
+</html>

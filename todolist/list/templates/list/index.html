@@ -1,0 +1,358 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ToDo List</title>
+    <link rel="icon" href="static/images/IMG_5658.PNG">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300&family=Indie+Flower&display=swap"
+          rel="stylesheet">
+<style>
+
+    body {
+    font-family: 'Chakra Petch', sans-serif;
+    background-color: rgb(250, 255, 194);
+    }
+
+    .side-bar {
+    position: fixed;
+    overflow-y: auto;
+    -webkit-overflow-y: auto;
+    overflow-x:hidden;
+    -webkit-overflow-x:hidden;
+    left: 0;
+    width: 200px;
+    height: 110%;
+    margin-top: -20px;
+    padding: 0 10px;
+    border-right: 1px solid rgb(250, 255, 194);
+    background-color: rgba(168, 121, 158, 0.98);
+    color: white;
+    }
+    .side-bar::-webkit-scrollbar { /* webkit */
+    width: 0;
+    height: 0;
+}
+
+    .logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid rgb(250, 255, 194);
+    -webkit-border-bottom: .5px solid rgb(250, 255, 194);
+    }
+
+    .logo-text {
+    font-family: 'Hind Siliguri', sans-serif;
+    align-self: flex-end;
+    }
+
+    .name-login {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    margin: 20px 5px;
+    text-shadow: 0 0px 1px #feffdef7;
+    -webkit-text-shadow: 0 0px 1px #feffdef7;
+    }
+
+    .log-link {
+    font-size: 14px;
+    color: white;
+    }
+
+    .sidebar-search {
+    width: 60%;
+    border: 1px solid rgb(59, 55, 49);
+    padding: 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-right: 3px;
+    -webkit-box-shadow: 10px 10px 10px -2px rgba(0, 0, 0, 0.3);
+    box-shadow: 10px 10px 10px -2px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar-search-btn {
+    border: 1px solid rgb(59, 55, 49);
+    padding: 0 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -webkit-box-shadow: 10px 10px 10px -2px rgba(0, 0, 0, 0.3);
+    box-shadow: 10px 10px 10px -2px rgba(0, 0, 0, 0.3);
+    transition: all .4s ease-out;
+    -webkit-transition: all .4s ease;
+    }
+    .sidebar-search-btn:hover {
+    background-color: rgba(59, 55, 49, .5);
+    }
+
+    .desk-title  {
+    position: relative;
+}
+
+    .desks-names {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 7px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(250, 255, 194);
+    -webkit-border-bottom: .5px solid rgb(250, 255, 194);
+    }
+
+    .user-desks {
+    margin: -40px 0px 20px 15px;
+    font-size: 18px;
+    padding: 10px;
+    color: #f5bf6e;
+    text-shadow: 1px 1px 1px #756f66;
+    -webkit-text-shadow: 1px 1px 1px #756f66;
+    }
+
+    .sdbr-desks {
+    color: white;
+    display: inline-block;
+    }
+
+    .desks-names .add-link {
+    align-self: flex-start;
+    }
+
+    .edit-link, .delete-link, .add-link {
+    color: rgb(250, 255, 194);
+    font-size: 20px;
+    }
+
+    .add-link {
+    font-size: 30px;
+    margin-left: 10px;
+    }
+
+    .desk-edit-link, .desk-delete-link {
+    color: gray;
+    font-size: 20px;
+    margin-left: 10px;
+    text-shadow: 1px .5px 1px #756f66;
+    -webkit-text-shadow: 0 0px 1px #756f66;
+    }
+
+    .back-link {
+    font-size: 16px;
+    color: white;
+    border: black;
+    }
+
+    .desk-add-link {
+    color: #f5bf6e;
+    font-size: 40px;
+    margin-left: 30px;
+    }
+
+    a {
+    text-decoration: none;
+    transition: all .3s ease-out;
+    -webkit-transition: all .3s ease;
+    }
+
+    .log-link:hover {
+    color: #3b3b3b;
+    text-shadow: none;
+    -webkit-text-shadow: none;
+    }
+
+    .sdbr-desks:hover {
+    color: #f5bf6e;
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    }
+
+    .edit-link:hover, .delete-link:hover, .add-link:hover, .back-link:hover, .desk-add-link:hover,
+    .desk-edit-link:hover,  .desk-delete-link:hover {
+    color: #603461;
+    text-shadow: none;
+    -webkit-text-shadow: none;
+    }
+
+    .page {
+    margin-left: 240px;
+    min-width: 400px;
+    width: 500px;
+    background-color: rgba(168, 121, 158, 0.98);
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -webkit-box-shadow: 10px 10px 10px -2px rgba(0, 0, 0, 0.3);
+    box-shadow: 10px 10px 10px -2px rgba(0, 0, 0, 0.3);
+    transition: all .4s ease-out;
+    -webkit-transition: all .4s ease;
+    }
+
+    .page:hover {
+    transform: scale(1.01);
+    -webkit-transform: scale(1.01);
+    }
+
+    .page-desk {
+    margin-left: 215px;
+    }
+
+    .img {
+    position: relative;
+    }
+
+    .desk-img {
+    object-fit: cover;
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    filter: brightness(50%);
+    }
+
+    .desk {
+    border: 1px solid rgba(168, 121, 158, 0.98);
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -webkit-box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.3);
+    padding-top: 10px;
+    }
+
+    .bottomright {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    font-size: 30px;
+    color: white;
+    border: black;
+    transition: all .3s ease-out;
+    -webkit-transition: all .3s ease;
+}
+
+    .bottomleft {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    font-size: 16px;
+    color: white;
+    border: black;
+    transition: all .3s ease-out;
+    -webkit-transition: all .3s ease;
+}
+
+    .bottomright:hover, .bottomleft:hover {
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    }
+
+    .task-wrapper {
+    display: flex;
+    min-width: 400px;
+
+    align-items: center;
+    justify-content: space-between;
+    border-top: .1px solid rgba(92, 60, 85, 0.8);
+    margin: 0 80px 10px 40px;
+    }
+
+    .task-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    }
+
+    .task-incomplete-icon {
+    margin-right: 20px;
+    height: 20px;
+    width: 20px;
+    background-color: rgba(245, 216, 144, 0.94);
+    border-radius:  50%;
+    box-shadow: 1px 0px 1px #756f66;
+    -webkit-box-shadow: 1px 0px 1px #756f66;
+    -webkit-border-radius:  50%;
+    }
+
+    .task-complete-icon {
+    margin-right: 20px;
+    height: 10px;
+    width: 10px;
+    border: 6px solid rgba(255, 188, 54, 0.3);
+    -webkit-border: 6px solid rgba(59, 55, 49, .6);
+    background-color: rgb(255, 235, 194);
+    border-radius:  50%;
+    -webkit-border-radius:  50%;
+    box-shadow: 1px 0px 1px #756f66;
+    -webkit-box-shadow: 1px 0px 1px #756f66;
+    }
+
+    .task-name {
+    font-size: 18px;
+    color: #8a5080;
+    text-shadow: 0 0px 1px rgba(168, 121, 158, 0.5);
+    -webkit-text-shadow: 0 0px 1px rgba(168, 121, 158, 0.5);
+    }
+
+    .task-name:hover {
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    }
+
+
+</style>
+
+</head>
+
+<body>
+<div class="side-bar">
+    <div class="logo">
+    <img src="{% static 'images/IMG_5658.PNG' %}" style="width: 70px; margin-top: 15px;">
+        <p class="logo-text">Don't keep in your head. Make a list</p>
+    </div>
+    <div class="name-login">
+        <div>
+            <p>Hello, {{ request.user|title }}!</p>
+        </div>
+        {% if request.user.is_authenticated %}
+        <a class="log-link" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+        <a class="log-link" href="{% url 'login' %}">Log in</a>
+        {% endif %}
+    </div>
+    <div id="search-wrapper">
+        <form method="GET" style="margin-top: 20px; display: flex;">
+            <input class="sidebar-search" type="text" name="search-area" value="{{ search_input }}"
+                   placeholder="Search desk">
+            <input class="sidebar-search-btn" type="submit" value="&#128269;">
+        </form>
+    </div>
+    <div class="desks" style="margin-top: 20px;">
+        <img src="{% static 'images/IMG_5661.PNG' %}" style="width: 100px; margin: -20px 0 -20px -30px;">
+        <p class="user-desks">{{ request.user|title }}'s desks:</p>
+        {% for desk in desks2 %}
+        <div class="desks-names">
+            <div>
+                <a href="{% url 'desk' desk.pk %}" class="sdbr-desks">&#8250; {{ desk|title }}</a>
+            </div>
+            <div>
+                <a href="{% url 'desk-update' desk.pk %}" class="edit-link">&#8230;</a>
+                <a href="{% url 'desk-delete' desk.pk %}" class="delete-link">&#215;</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div style="margin-top: 20px;">
+        <a class="add-link" href="{% url 'desk-create' %}">&#x2b;</a>
+    </div>
+
+</div>
+{% block content %}
+
+{% endblock content %}
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends 'list/index.html' %}
+{% block content %}
+{% load static %}
+
+<div class="page-desk">
+    <div class="img">
+        <img src="{{ desk.image.url }}" alt="desk image" class="desk-img">
+        <a href="{% url 'desk-update' desk.pk %}" class="bottomright">&#8230;</a>
+        <a href="{% url 'main' %}" class="bottomleft">&#8592; Back</a>
+    </div>
+    <div class="desk">
+        <div class="header">
+            <div class="desk-title" style="margin-top: 50px;">
+                <h1 style="color: #f5bf6e; text-shadow: 0 0px 1px rgba(168, 121, 158, 0.98);
+    -webkit-text-shadow: 0 0px 1px #feffdef7; margin: -30px 0 25px 40px;">{{ desk }}</h1>
+                <p style="color: rgba(168, 121, 158, 0.98); text-shadow: 0px 0px 1px #756f66;
+    -webkit-text-shadow: 0 0px 1px #756f66; margin-left: 40px; font-size: 18px;">You have {{ count }} incomplete item{{ count|pluralize:"s" }}</p>
+            </div>
+        </div>
+    <a class="desk-add-link" href="{% url 'task-create' desk.pk %}" style="margin: 0 0 20px 50px;">&#x2b;</a>
+        <div class="task-items-wrapper">
+        {% for task in tasks %}
+        <div class="task-wrapper">
+            {% if task.complete %}
+            <div class="task-title">
+                <div class="task-complete-icon"></div>
+                <i><s><a href="{% url 'task' task.pk %}" class="task-name">{{ task|title }}</a></s></i>
+            </div>
+            <div>
+                <a href="{% url 'task-update' task.pk %}" class="desk-edit-link">&#8230;</a>
+                <a class="desk-delete-link" href="{% url 'task-delete' task.pk %}">&#215;</a>
+            </div>
+            {% else %}
+            <div class="task-title">
+                <div class="task-incomplete-icon"></div>
+                <a href="{% url 'task' task.pk %}" class="task-name">{{ task|title }}</a>
+            </div>
+            <div>
+            <a href="{% url 'task-update' task.pk %}" class="desk-edit-link">&#8230;</a>
+            <a class="desk-delete-link" href="{% url 'task-delete' task.pk %}">&#215;</a>
+            </div>
+            {% endif %}
+        </div>
+
+        {% empty %}
+        <p style="font-size: 18px;
+    color: #8a5080;
+    text-shadow: 0 0px 1px rgba(168, 121, 158, 0.5);
+    -webkit-text-shadow: 0 0px 1px rgba(168, 121, 158, 0.5); margin-left:40px">No items in list</p>
+        {% endfor %}
+
+    </div>
+        </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends 'list/index.html' %}
+{% block content %}
+{% load static %}
+
+<div class="page">
+    <br>
+    <h1 style="margin-left: 40px; color: #f5bf6e;
+    text-shadow: 1px 1px 1px #756f66;
+    -webkit-text-shadow: 0 0px 1px #756f66;">Your desks:</h1>
+    {% if desks %}
+    {% for desk in desks %}
+    <div>
+        <div class="desks-names">
+            <div>
+                <a href="{% url 'desk' desk.pk %}" style="margin-left: 25px;" class="sdbr-desks">&#8250; {{ desk|title }}</a>
+            </div>
+            <div>
+                <a href="{% url 'desk-update' desk.pk %}" class="edit-link">&#8230;</a>
+                <a href="{% url 'desk-delete' desk.pk %}" class="delete-link">&#215;</a></a>
+        </div>
+        </div>
+
+    {% endfor %}
+            {% else %}
+            <div class="no-desks">
+            <p style="font-size: 18px;
+    color: #fff;
+    text-shadow: 0 0px 1px rgba(168, 121, 158, 0.5);
+    -webkit-text-shadow: 0 0px 1px rgba(168, 121, 158, 0.5); margin-left:40px">You don't have any. Wanna create some?</p>
+            <div>
+    {% endif %}
+
+        <div>
+            <div style="margin: 20px 0 0 30px;">
+                <a class="add-link" href="{% url 'desk-create' %}">&#x2b;</a>
+            </div>
+        </div>
+    <br>
+</div>
+
+{% endblock content %}
