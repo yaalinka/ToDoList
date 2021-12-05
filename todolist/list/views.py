@@ -1,5 +1,4 @@
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -10,6 +9,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
 
 
 class CustomLoginView(LoginView):
@@ -23,9 +25,13 @@ class CustomLoginView(LoginView):
 
 class RegisterPage(FormView):
     template_name = 'list/register.html'
-    form_class = UserCreationForm
+    form_class = SignUpForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('main')
+    email = forms.EmailField(max_length=64, help_text='Enter a valid email address')
+
+    class Meta(UserCreationForm.Meta):
+        fields = ['username', 'email', 'password1', 'password2']
 
     def form_valid(self, form):
         user = form.save()
@@ -37,6 +43,18 @@ class RegisterPage(FormView):
         if self.request.user.is_authenticated:
             return redirect('main')
         return super(RegisterPage, self).get(*args, **kwargs)
+
+    def get_success_url(self):
+        template = render_to_string('list/email_template.html', {'name': self.request.user.username})
+        email_message = EmailMessage(
+            'Thank you for being with us.',
+            template,
+            settings.EMAIL_HOST_USER,
+            [self.request.user.email]
+        )
+        email_message.fail_silently = False
+        email_message.send()
+        return reverse_lazy('main')
 
 
 class DeskList(LoginRequiredMixin, ListView):
