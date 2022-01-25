@@ -103,7 +103,7 @@ class DeskUpdate(LoginRequiredMixin, UpdateView, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['desks2'] = context['desks'].filter(user=self.request.user)
+        context['desks2'] = Desk.objects.filter(user=self.request.user)
         return context
 
 
@@ -145,7 +145,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
         return reverse_lazy('desk', kwargs={'pk': desk_id})
 
 
-class TaskUpdate(LoginRequiredMixin, UpdateView):
+class TaskUpdate(LoginRequiredMixin, UpdateView, ListView):
     model = Task
     login_url = reverse_lazy('login')
     fields = ['title', 'description', 'complete']
@@ -154,6 +154,11 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         desk_id = self.object.desk.id
         return reverse_lazy('desk', kwargs={'pk': desk_id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['desks2'] = Desk.objects.filter(user=self.request.user)
+        return context
 
 
 class DeleteTask(LoginRequiredMixin, DeleteView):
