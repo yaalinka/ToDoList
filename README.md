@@ -10,7 +10,7 @@ It's a site with register and log-in systems. There you can create desks with yo
 <img src="todolist/screenshots/register.png">
 <img src="todolist/screenshots/login.png">
 
-- Create, Update desks customized with your own picture
+- Create, Update, Delete desks customized with your own picture
 <img src="todolist/screenshots/desk-create.png">
 
 - Add, Edit, Mark as complete/uncompleted, Delete tasks (items) from your desk
